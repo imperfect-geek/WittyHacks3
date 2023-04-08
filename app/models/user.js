@@ -29,8 +29,12 @@ const usersSchema = new mongoose.Schema(
     },
     isNotified: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
+    subscription: {
+      type: String,
+      default: "",
+    },
   },
   {
     timestamps: true,
