@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 import ContactPhoneOutlinedIcon from "@mui/icons-material/ContactPhoneOutlined";
 import { useDispatch } from "react-redux";
 import { sent_mail } from "Slices/wasteSlice";
+import { SnackbarContext } from "./providers/SnackbarProvider";
 
 const Card = ({ waste }) => {
   const dispatch = useDispatch();
+  const { open: openSnackbar } = useContext(SnackbarContext);
 
   const mailHandler = (sellerId, title) => {
     dispatch(sent_mail(sellerId, title));
-    alert("Mail Sent Seccesfully");
+    openSnackbar("Mail Sent Seccesfully", "success");
   };
   console.log(waste);
   const { city, locality, state } = waste.user.address;

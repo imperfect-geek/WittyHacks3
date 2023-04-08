@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { user_registration } from "Slices/userSlice";
 import { useNavigate } from "react-router-dom";
+import { SnackbarContext } from "./providers/SnackbarProvider";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -21,18 +22,19 @@ const Register = () => {
   const navigate = useNavigate();
 
   const { isAuth, status } = useSelector((state) => state.user);
+  const { open: openSnackbar } = useContext(SnackbarContext);
 
   const registerHandler = async (e) => {
     e.preventDefault();
     const address = { addressLine, pincode, locality, state, city };
     await dispatch(user_registration(name, contact, email, address, password));
-    alert("Regsitered Succesfully");
+    openSnackbar("Regsitered Succesfully", "success");
     navigate("/");
   };
 
   useEffect(() => {
     if (status.type === "error") {
-      alert(status.message);
+      openSnackbar(status.message, "error");
     }
   }, []);
 

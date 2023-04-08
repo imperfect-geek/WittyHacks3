@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { upload_waste } from "Slices/wasteSlice";
 import uploadGIF from "assets/upload.gif";
+import { SnackbarContext } from "./providers/SnackbarProvider";
 
 const WasteUploadForm = () => {
   const [image, setImage] = useState("");
@@ -23,6 +24,7 @@ const WasteUploadForm = () => {
   const dispatch = useDispatch();
 
   const { waste, status: ewasteStatus } = useSelector((state) => state.ewaste);
+  const { open: openSnackbar } = useContext(SnackbarContext);
 
   const WasteDataChange = (e) => {
     if (e.target.name === "image") {
@@ -41,7 +43,7 @@ const WasteUploadForm = () => {
 
   useEffect(() => {
     if (ewasteStatus.type === "error") {
-      alert(ewasteStatus.message);
+      openSnackbar(ewasteStatus.message, "error");
     }
   }, []);
 
