@@ -15,7 +15,7 @@ const SectionWrapper = ({
   console.log(inverted);
   return (
     <section
-      className={`${respPX} py-6 flex ${
+      className={`${respPX} py-6 flex text-[#303030]  ${
         inverted ? "md:flex-row-reverse" : "md:flex-row"
       } flex-col justify-between gap-3 ${className} items-center`}
     >

@@ -12,14 +12,14 @@ const LoginRegisterPage = () => {
         {/* <div className="grid grid-cols-2 gap-4 pl-48 pr-48"> */}
         {/* input fields column */}
         <div className="">
-          <h1 className="text-5xl text-center mb-8 text-indigo-500">
+          <h1 className="text-5xl text-center mb-8 text-slate-500">
             {compSwitch ? "Register" : "Login"}
           </h1>
           <p className="text-lg text-center mb-8">
             {compSwitch
               ? "Already have an account ? "
               : "Dont have any account ? "}
-            <span className="text-indigo-800">
+            <span className="text-green-600">
               <a
                 onClick={() => setCompSwitch(!compSwitch)}
                 className="cursor-pointer"

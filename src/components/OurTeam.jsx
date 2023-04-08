@@ -42,7 +42,9 @@ const team = [
 
 const OurTeam = () => {
   return (
-    <section className={`${respPX} py-14 bg-[#8DE78D] text-center`}>
+    <section
+      className={`${respPX} py-14 bg-[#8DE78D] text-[#303030] text-center`}
+    >
       <h2 className="text-4xl">Our Team</h2>
       <div className="flex justify-center mt-4">
         <p className="w-3/4">
@@ -64,7 +66,7 @@ const OurTeam = () => {
               <div className="flex flex-col gap-2">
                 <h3 className="text-3xl">{item.name}</h3>
                 <p className="texr-xl font-bold">{item.role}</p>
-                <div className="flex gap-2 text-gray-700 flex-col">
+                <div className="flex gap-2 text-[#676464] flex-col">
                   <a
                     target="_blank"
                     rel="noreferrer"

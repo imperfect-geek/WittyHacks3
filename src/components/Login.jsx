@@ -57,7 +57,7 @@ const Login = () => {
 
         <div className="mt-9 mb-9 w-full flex justify-center items-center">
           <button
-            className="w-40  h-10 bg-indigo-600 rounded text-slate-50"
+            className="w-40  h-10 bg-green-600 rounded text-slate-50"
             onClick={loginHandler}
           >
             Login

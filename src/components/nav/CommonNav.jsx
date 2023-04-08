@@ -39,7 +39,7 @@ const CommongNav = () => {
       ? {
           component: (
             <button
-              className="border-4 border-black px-2 py-1 text-lg w-full"
+              className="bg-white text-[#303030] rounded px-3 py-2 text-md w-full"
               onClick={logoutHandler}
             >
               Logout
@@ -48,7 +48,7 @@ const CommongNav = () => {
         }
       : {
           component: (
-            <button className="border-4 border-black px-2 py-1 text-lg w-full">
+            <button className="bg-white text-[#303030] rounded px-3 py-2 text-md w-full">
               Login / Register
             </button>
           ),

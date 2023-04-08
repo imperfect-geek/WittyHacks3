@@ -14,6 +14,7 @@ const verifyjwt = require("./controller/auth");
 const eWasteInfo = require("./controller/eWasteForm");
 const getPosts = require("./controller/getPosts");
 const contact = require("./controller/contact");
+const chat = require("./controller/chat");
 
 //routes
 router.post("/signup", signup, (req, res) => {
@@ -44,6 +45,8 @@ router.get("/posts/:page", verifyjwt, getPosts, (req, res) => {
 // const upload = multer({ dest: path.join(__dirname, "/public") });
 //upload.single("image")
 router.post("/uploadfiles", verifyjwt, eWasteInfo);
+
+router.post("/chat").post(chat);
 
 router.post("/notify", verifyjwt, contact, (req, res) => {
   console.log("Mail Sent");

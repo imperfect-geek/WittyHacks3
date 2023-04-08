@@ -5,9 +5,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { user_registration } from "Slices/userSlice";
 import { useNavigate } from "react-router-dom";
 import { SnackbarContext } from "./providers/SnackbarProvider";
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import {
+  MapContainer,
+  Marker,
+  Popup,
+  TileLayer,
+  useMapEvents,
+} from "react-leaflet";
 import RedMarkerIcon from "assets/redMarker.png";
 import L from "leaflet";
+
+const precisedFloat = (num, precision = 4) => {
+  return parseFloat(num.toFixed(precision));
+};
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -21,8 +31,10 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [currPos, setCurrPos] = React.useState([]);
+  const [pin, setPin] = React.useState([]);
   const showPosition = ({ coords }) => {
     setCurrPos(() => [coords.latitude, coords.longitude]);
+    setPin(() => [coords.latitude, coords.longitude]);
   };
 
   const dispatch = useDispatch();
@@ -30,6 +42,11 @@ const Register = () => {
 
   const { isAuth, status } = useSelector((state) => state.user);
   const { open: openSnackbar } = useContext(SnackbarContext);
+
+  const placePin = (e) => {
+    console.log(e);
+    setPin(() => [e.latitude, e.longitude]);
+  };
 
   const registerHandler = async (e) => {
     e.preventDefault();
@@ -44,6 +61,12 @@ const Register = () => {
       iconSize: [40, 40],
     });
   }
+  function getPinMarker() {
+    return L.icon({
+      iconUrl: RedMarkerIcon,
+      iconSize: [50, 50],
+    });
+  }
   useEffect(() => {
     if (status.type === "error") {
       openSnackbar(status.message, "error");
@@ -53,6 +76,19 @@ const Register = () => {
     navigator.geolocation.getCurrentPosition(showPosition);
   }, [currPos[0]?.toFixed(4), currPos[1]?.toFixed(4)]);
 
+  function MarkerAction() {
+    const map = useMapEvents({
+      click: () => {
+        map.locate();
+      },
+      locationfound: (location) => {
+        console.log(location);
+        map.flyTo(location.latlng, map.getZoom());
+        setPin(() => [location.latlng.lat, location.latlng.lng]);
+      },
+    });
+    return null;
+  }
   return (
     <div className="inputFields flex justify-center  rounded-xl py-4 ">
       <form>
@@ -120,6 +156,7 @@ const Register = () => {
             {currPos.length ? (
               <MapContainer
                 center={currPos}
+                onClick={placePin}
                 zoom={16}
                 scrollWheelZoom={true}
                 style={{ height: "500px", width: "100%" }}
@@ -131,6 +168,12 @@ const Register = () => {
                 <Marker position={currPos} icon={getPersonMarker()}>
                   <Popup>Your Currrent Position</Popup>
                 </Marker>
+                {pin.length && (
+                  <Marker position={pin} icon={getPinMarker()}>
+                    <Popup>Placed Pin</Popup>
+                  </Marker>
+                )}
+                <MarkerAction />
               </MapContainer>
             ) : (
               <h2 className="text-red-200">
@@ -141,7 +184,7 @@ const Register = () => {
         </div>
         <div className="mt-9 mb-9 w-full flex justify-center items-center">
           <button
-            className="w-48  h-10  bg-indigo-600 rounded text-slate-50"
+            className="w-48  h-10  bg-green-600 rounded text-slate-50"
             onClick={registerHandler}
           >
             Register

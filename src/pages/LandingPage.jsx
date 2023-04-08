@@ -42,14 +42,9 @@ const LandingPage = () => {
           ]}
           image={gif2}
         /> */}
-        <section className="h-[60vh] flex flex-col items-center justify-center gap-10">
+        {/* <section className="flex flex-col items-center justify-center gap-10">
           <h1 className={`${respPX} pb-3 text-5xl bg-white`}>Our Features</h1>
-          <img
-            src={landingBg}
-            alt="what we do"
-            className="object-cover md:h-full shadow-lg md:w-auto w-[80vmin]"
-          />
-        </section>
+        </section> */}
         {/* Our Team */}
         <OurTeam />
       </main>
