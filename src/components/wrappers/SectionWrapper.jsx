@@ -20,9 +20,13 @@ const SectionWrapper = ({
       } flex-col justify-between gap-3 ${className} items-center`}
     >
       <div className="md:w-[45%] w-full flex flex-col gap-3">
-        <h1 className={`${hsize} mb-5`}>{heading}</h1>
+        <h1 className={`${hsize} font-bold mb-5`}>{heading}</h1>
         {paragraphs.map((item, index) => {
-          return <p key={index}>{item}</p>;
+          return (
+            <p className="font-mono text-lg" key={index}>
+              {item}
+            </p>
+          );
         })}
         {actionButton && (
           <span className="w-full md:max-w-fit mt-4">

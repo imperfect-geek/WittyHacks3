@@ -52,7 +52,7 @@ const WasteCollectorPage = () => {
       <main className={`${respPX} py-6`}>
         <h1 className="text-3xl">Waste Collection Form</h1>
         <form onSubmit={handleSubmit}>
-          <div className="border-1 border-gray-400 py-4 grid md:grid-cols-3 sm:grid-cols-2 gap-4">
+          <div className="border-1 border-gray-400 py-4 grid  sm:grid-cols-2 gap-4">
             <LabelInput label="Name" name="name" id="name" placeholder="Name" />
             <LabelInput
               label="Email"
@@ -88,7 +88,7 @@ const WasteCollectorPage = () => {
             type="textarea"
           />
           <div className="flex justify-center">
-            <button className="bg-green-500 text-white px-4 py-2 rounded-lg">
+            <button className="bg-green-600 text-white px-8 py-2 rounded-lg">
               Generate Pickup Request
             </button>
           </div>

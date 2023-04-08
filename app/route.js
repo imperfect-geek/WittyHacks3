@@ -13,12 +13,9 @@ const verifyjwt = require("./controller/auth");
 const eWasteInfo = require("./controller/eWasteForm");
 const getPosts = require("./controller/getPosts");
 const contact = require("./controller/contact");
-<<<<<<< HEAD
 const chat = require("./controller/chat");
-=======
 const subscribe = require("./controller/subscribe");
 const fetchVehiclePosition = require("./controller/fetchVehiclePosition");
->>>>>>> refs/remotes/origin/main
 
 //routes
 router.post("/signup", signup, (req, res) => {

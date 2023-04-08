@@ -52,7 +52,7 @@ const WasteBuddyPage = () => {
       >
         {/* Chats */}
         <div
-          className="overflow-y-scroll flex flex-col flex-grow gap-2"
+          className="overflow-y-scroll flex flex-col flex-grow gap-2 px-4"
           ref={chatsRef}
         >
           {chats.map((chat, index) => {

@@ -1,6 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
-import TextField from "@mui/material/TextField";
-import { Button } from "@mui/material";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { user_registration } from "Slices/userSlice";
 import { useNavigate } from "react-router-dom";
@@ -15,9 +20,43 @@ import {
 import RedMarkerIcon from "assets/redMarker.png";
 import L from "leaflet";
 
-const precisedFloat = (num, precision = 4) => {
-  return parseFloat(num.toFixed(precision));
-};
+function DraggableMarker({ center, setPin }) {
+  const [draggable, setDraggable] = useState(false);
+  const [position, setPosition] = useState(center);
+  const markerRef = useRef(null);
+  const eventHandlers = useMemo(
+    () => ({
+      dragend() {
+        const marker = markerRef.current;
+        if (marker != null) {
+          setPosition(marker.getLatLng());
+          setPin(() => [marker.getLatLng().lat, marker.getLatLng().lng]);
+        }
+      },
+    }),
+    []
+  );
+  const toggleDraggable = useCallback(() => {
+    setDraggable((d) => !d);
+  }, []);
+
+  return (
+    <Marker
+      draggable={draggable}
+      eventHandlers={eventHandlers}
+      position={position}
+      ref={markerRef}
+    >
+      <Popup minWidth={90}>
+        <span onClick={toggleDraggable}>
+          {draggable
+            ? "Marker is draggable"
+            : "Click here to make marker draggable"}
+        </span>
+      </Popup>
+    </Marker>
+  );
+}
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -50,10 +89,18 @@ const Register = () => {
 
   const registerHandler = async (e) => {
     e.preventDefault();
-    const address = { addressLine, pincode, locality, state, city };
-    await dispatch(user_registration(name, contact, email, address, password));
-    openSnackbar("Regsitered Succesfully", "success");
-    navigate("/");
+    const address = { pincode, latitude: pin?.[0], longitude: pin?.[1] };
+    try {
+      const resp = await dispatch(
+        user_registration(name, contact, email, address, password)
+      );
+      console.log("register response");
+      console.log(resp);
+      openSnackbar("Regsitered Succesfully", "success");
+      navigate("/");
+    } catch (error) {
+      openSnackbar(error?.response?.data?.message, "error");
+    }
   };
   function getPersonMarker() {
     return L.icon({
@@ -75,6 +122,10 @@ const Register = () => {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(showPosition);
   }, [currPos[0]?.toFixed(4), currPos[1]?.toFixed(4)]);
+
+  useEffect(() => {
+    console.log(pin);
+  }, [pin]);
 
   function MarkerAction() {
     const map = useMapEvents({
@@ -152,7 +203,7 @@ const Register = () => {
             />
           </div>
           {/* span in both grid col */}
-          <div className="md:col-span-2">
+          <div className="md:col-span-2 overflow-hidden">
             {currPos.length ? (
               <MapContainer
                 center={currPos}
@@ -168,11 +219,7 @@ const Register = () => {
                 <Marker position={currPos} icon={getPersonMarker()}>
                   <Popup>Your Currrent Position</Popup>
                 </Marker>
-                {pin.length && (
-                  <Marker position={pin} icon={getPinMarker()}>
-                    <Popup>Placed Pin</Popup>
-                  </Marker>
-                )}
+                <DraggableMarker center={pin} setPin={setPin} />
                 <MarkerAction />
               </MapContainer>
             ) : (

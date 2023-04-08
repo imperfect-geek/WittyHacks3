@@ -89,6 +89,7 @@ export const user_registration = (name, contact, email, address, password) => {
         password,
         address,
       });
+      console.log(data);
       dispatch(userRegister());
       dispatch(
         setStatus({
@@ -96,6 +97,7 @@ export const user_registration = (name, contact, email, address, password) => {
           message: "User Login Successfully",
         })
       );
+      return data;
     } catch (error) {
       if (error) {
         dispatch(
@@ -104,6 +106,7 @@ export const user_registration = (name, contact, email, address, password) => {
             message: error.response.data.message,
           })
         );
+        throw error;
       }
     }
   };
