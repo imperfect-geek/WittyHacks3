@@ -10,6 +10,7 @@ import WasteUpload from "pages/WasteUpload";
 import FoodCollectorsPage from "pages/FoodCollectorsPage";
 import { useSelector } from "react-redux";
 import WasteCollectorPage from "pages/WasteCollectorPage";
+import WasteBuddyPage from "pages/WasteBuddyPage";
 import { Alert, Snackbar } from "@mui/material";
 import SnackbarProvider from "components/providers/SnackbarProvider";
 import { useContext } from "react";
@@ -23,6 +24,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
+          <Route path="/waste-buddy" element={<WasteBuddyPage />} />
           <Route path="/locate-dustbins" element={<LocateDustbinsPage />} />
           <Route path="/waste-category" element={<WasteCategoryPage />} />
           <Route path="/login-register" element={<LoginRegisterPage />} />

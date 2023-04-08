@@ -17,6 +17,10 @@ const CommongNav = () => {
   };
   const list = [
     {
+      component: "Waste Buddy",
+      to: "/waste-buddy",
+    },
+    {
       component: "Locate Dustbin",
       to: "/locate-dustbins",
     },

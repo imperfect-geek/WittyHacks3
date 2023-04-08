@@ -46,7 +46,7 @@ router.get("/posts/:page", verifyjwt, getPosts, (req, res) => {
 //upload.single("image")
 router.post("/uploadfiles", verifyjwt, eWasteInfo);
 
-router.post("/chat").post(chat);
+router.post("/chat", chat);
 
 router.post("/notify", verifyjwt, contact, (req, res) => {
   console.log("Mail Sent");
