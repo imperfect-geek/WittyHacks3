@@ -1,17 +1,19 @@
 import { Button } from "@mui/material";
+import { SnackbarContext } from "components/providers/SnackbarProvider";
 import NavWrapper from "components/wrappers/NavWrapper";
-import React from "react";
+import React, { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { user_logout } from "Slices/userSlice";
 
 const CommongNav = () => {
   const { isAuth } = useSelector((state) => state.user);
+  const { open: openSnackbar } = useContext(SnackbarContext);
 
   const dispatch = useDispatch();
 
   const logoutHandler = async () => {
     await dispatch(user_logout());
-    alert("User Logged Out");
+    openSnackbar("User Logged Out", "info");
   };
   const list = [
     {

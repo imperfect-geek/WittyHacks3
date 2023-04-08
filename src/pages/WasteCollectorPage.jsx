@@ -1,6 +1,7 @@
 import CommongNav from "components/nav/CommonNav";
+import { SnackbarContext } from "components/providers/SnackbarProvider";
 import { respPX } from "constants/styles";
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 const LabelInput = ({ label, name, id, placeholder, type = "text" }) => {
@@ -33,13 +34,15 @@ const LabelInput = ({ label, name, id, placeholder, type = "text" }) => {
 
 const WasteCollectorPage = () => {
   const navigate = useNavigate();
+  const { open: openSnackbar } = useContext(SnackbarContext);
   const handleSubmit = (ev) => {
     // ev.preventDefault();
     // [...ev.target.elements].forEach((e) => {
     //   console.log(e.value);
     // });
-    alert(
-      "Succesfully submitted your request, Nagar Nigam team will be in contact with you soon."
+    openSnackbar(
+      "Succesfully submitted your request, Nagar Nigam team will be in contact with you soon.",
+      "success"
     );
     navigate("/");
   };

@@ -10,26 +10,38 @@ import WasteUpload from "pages/WasteUpload";
 import FoodCollectorsPage from "pages/FoodCollectorsPage";
 import { useSelector } from "react-redux";
 import WasteCollectorPage from "pages/WasteCollectorPage";
+import { Alert, Snackbar } from "@mui/material";
+import SnackbarProvider from "components/providers/SnackbarProvider";
+import { useContext } from "react";
+import { SnackbarContext } from "components/providers/SnackbarProvider";
 
 function App() {
-  const user = useSelector((state) => state.user);
-  console.log(user);
-  console.log(user);
+  const { state, close } = useContext(SnackbarContext);
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/locate-dustbins" element={<LocateDustbinsPage />} />
-        <Route path="/waste-category" element={<WasteCategoryPage />} />
-        <Route path="/login-register" element={<LoginRegisterPage />} />
-        <Route path="/waste-collectors" element={<WasteCollectorPage />} />
-        <Route path="/food-collectors" element={<FoodCollectorsPage />} />
-        <Route
-          path="/dashboard"
-          element={<RequireAuth>Protected</RequireAuth>}
-        />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/locate-dustbins" element={<LocateDustbinsPage />} />
+          <Route path="/waste-category" element={<WasteCategoryPage />} />
+          <Route path="/login-register" element={<LoginRegisterPage />} />
+          <Route path="/waste-collectors" element={<WasteCollectorPage />} />
+          <Route path="/food-collectors" element={<FoodCollectorsPage />} />
+          <Route
+            path="/dashboard"
+            element={<RequireAuth>Protected</RequireAuth>}
+          />
+        </Routes>
+      </BrowserRouter>
+      <Snackbar
+        open={state.open}
+        autoHideDuration={state.autoHideDuration}
+        onClose={close}
+      >
+        <Alert severity={state.severity}>{state.message}</Alert>
+      </Snackbar>
+    </>
   );
 }
 

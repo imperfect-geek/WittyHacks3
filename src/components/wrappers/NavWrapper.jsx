@@ -41,8 +41,8 @@ const NavWrapper = ({ list }) => {
       <h1 className="text-3xl">
         <Link to="/">
           {/* <img src={Void} alt="logo" /> */}
-          <h1 className="font-bold font-sans bg-white px-2 py-1 rounded-md">
-            Waste Management
+          <h1 className="font-extrabold font-sans bg-white px-2 py-1 rounded-md">
+            VOID TRAS<span className="text-green-600">H</span>
           </h1>
         </Link>
       </h1>

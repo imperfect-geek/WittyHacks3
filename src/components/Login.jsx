@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { user_login } from "Slices/userSlice";
 import { useNavigate } from "react-router-dom";
+import { SnackbarContext } from "./providers/SnackbarProvider";
 
 const Login = () => {
   const [credentials, setCredentials] = useState("");
@@ -12,19 +13,20 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { isAuth, status, user } = useSelector((state) => state.user);
+  const { status } = useSelector((state) => state.user);
+  const { open: openSnackbar } = useContext(SnackbarContext);
 
   const loginHandler = async (e) => {
     e.preventDefault();
 
     await dispatch(user_login(credentials, password));
-    alert("Logged In Succesfully");
+    openSnackbar("Logged In Successfully", "success");
     navigate("/");
   };
 
   useEffect(() => {
     if (status.type === "error") {
-      alert(status.message);
+      openSnackbar(status.message, "error");
     }
   }, []);
 
