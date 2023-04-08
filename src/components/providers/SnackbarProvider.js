@@ -5,7 +5,7 @@ const initialValue = {
   open: false,
   message: "",
   severity: "info",
-  autoHideDuration: 10000,
+  autoHideDuration: 3000,
   vertical: "top",
   horizontal: "center",
 };
