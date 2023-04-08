@@ -1,7 +1,6 @@
 const express = require("express");
 const app = express();
 const router = new express.Router();
-const path = require("path");
 app.use(router);
 
 //controllers
@@ -14,6 +13,8 @@ const verifyjwt = require("./controller/auth");
 const eWasteInfo = require("./controller/eWasteForm");
 const getPosts = require("./controller/getPosts");
 const contact = require("./controller/contact");
+const subscribe = require("./controller/subscribe");
+const fetchVehiclePosition = require("./controller/fetchVehiclePosition");
 
 //routes
 router.post("/signup", signup, (req, res) => {
@@ -47,6 +48,14 @@ router.post("/uploadfiles", verifyjwt, eWasteInfo);
 
 router.post("/notify", verifyjwt, contact, (req, res) => {
   console.log("Mail Sent");
+});
+
+router.post("/subscribe", verifyjwt, subscribe, (req, res) => {
+  console.log("Subscribed Successfully!");
+});
+
+router.get("/vehicleposition", fetchVehiclePosition, (req, res) => {
+  console.log("Notified!");
 });
 
 module.exports = router;
