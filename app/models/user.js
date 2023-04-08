@@ -19,11 +19,18 @@ const usersSchema = new mongoose.Schema(
     },
     address: {
       pincode: Number, // 6 digit
-      addressLine: String,
-      locality: String,
-      city: String,
-      state: String,
+      location: {
+        type: {
+          type: String,
+          default: "Point",
+        },
+        coordinates: { type: [Number], default: [0, 0] }, //longitude, latitude
+      },
     },
+    isNotified: {
+      type: Boolean,
+      default: false
+    }
   },
   {
     timestamps: true,

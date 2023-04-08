@@ -16,10 +16,7 @@ const signUp = async (req, res, next) => {
       //   returnScore: false,
       // }) &&
       req.body.address.pincode.toString().length === 6 &&
-      req.body.address.addressLine &&
-      req.body.address.locality &&
-      req.body.address.city &&
-      req.body.address.state
+      req.body.address.longitude && req.body.address.latitude
     ) {
       const { name, email, contact, password, address } = req.body;
 
