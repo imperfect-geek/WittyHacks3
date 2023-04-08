@@ -24,10 +24,10 @@ const CommongNav = () => {
       component: "Waste Category",
       to: "/waste-category",
     },
-    {
-      component: "Food Collectors",
-      to: "/food-collectors",
-    },
+    // {
+    //   component: "Food Collectors",
+    //   to: "/food-collectors",
+    // },
     {
       component: "Waste Collectors",
       to: "/waste-collectors",

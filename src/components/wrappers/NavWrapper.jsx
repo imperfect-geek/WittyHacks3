@@ -12,7 +12,7 @@ const NavWrapper = ({ list }) => {
     list.map((item, index) => {
       return (
         <Link key={index} to={item.to}>
-          <span className="font-bold text-lg lg:inline-block hidden">
+          <span className="font-bold text-lg lg:inline-block  hidden px-2 py-1 transition-all duration-200 ease-out hover:bg-black/5 active:bg-black/10">
             {item.component}
           </span>
         </Link>
@@ -23,7 +23,9 @@ const NavWrapper = ({ list }) => {
       <div className="flex flex-col-reverse justify-end h-full gap-10 px-16 py-16">
         {list.map((item, index) => (
           <Link key={index} to={item.to}>
-            <span className="font-bold text-lg">{item.component}</span>
+            <span className="font-bold text-lg px-2 py-1 transition-all duration-200 ease-out hover:bg-black/5 active:bg-black/10 focus:bg-black/10">
+              {item.component}
+            </span>
           </Link>
         ))}
         <div className="absolute top-5 right-5">
