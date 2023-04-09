@@ -3,6 +3,7 @@ import { SnackbarContext } from "components/providers/SnackbarProvider";
 import { respPX } from "constants/styles";
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import SweepingFloorGIF from "assets/sweeping-floor.gif";
 
 const LabelInput = ({ label, name, id, placeholder, type = "text" }) => {
   return (
@@ -50,49 +51,63 @@ const WasteCollectorPage = () => {
     <>
       <CommongNav />
       <main className={`${respPX} py-6`}>
-        <h1 className="text-3xl">Waste Collection Form</h1>
-        <form onSubmit={handleSubmit}>
-          <div className="border-1 border-gray-400 py-4 grid  sm:grid-cols-2 gap-4">
-            <LabelInput label="Name" name="name" id="name" placeholder="Name" />
-            <LabelInput
-              label="Email"
-              name="email"
-              id="email"
-              placeholder="Email"
+        <h1 className="text-5xl flex items-center justify-center">
+          Waste Collection Form
+          <span className="">
+            <img
+              src={SweepingFloorGIF}
+              alt="cleaning"
+              className="md:hidden w-28"
             />
-            <LabelInput
-              label="Phone"
-              name="phone"
-              id="phone"
-              placeholder="Phone"
-            />
-            <LabelInput
-              label="Address"
-              name="address"
-              id="address"
-              placeholder="Address"
-            />
-            <LabelInput label="City" name="city" id="city" placeholder="City" />
-            <LabelInput
-              label="Waste Image"
-              name="wasteImage"
-              id="wasteImage"
-              type="file"
-            />
-          </div>
-          <LabelInput
-            label="Waste Description"
-            name="wasteDescription"
-            id="wasteDescription"
-            placeholder="Waste Description"
-            type="textarea"
+          </span>
+        </h1>
+        <section className="flex justify-center items-center">
+          <img
+            src={SweepingFloorGIF}
+            alt="cleaning"
+            className="flex-1 hidden md:block"
           />
-          <div className="flex justify-center">
-            <button className="bg-green-600 text-white px-8 py-2 rounded-lg">
-              Generate Pickup Request
-            </button>
-          </div>
-        </form>
+          <form onSubmit={handleSubmit} className="flex-1">
+            <div className="border-1 border-gray-400 py-4 grid  sm:grid-cols-2 gap-4">
+              <LabelInput
+                label="Name"
+                name="name"
+                id="name"
+                placeholder="Name"
+              />
+              <LabelInput
+                label="Email"
+                name="email"
+                id="email"
+                placeholder="Email"
+              />
+              <LabelInput
+                label="Phone"
+                name="phone"
+                id="phone"
+                placeholder="Phone"
+              />
+              <LabelInput
+                label="Address"
+                name="address"
+                id="address"
+                placeholder="Address"
+              />
+            </div>
+            <LabelInput
+              label="Waste Description"
+              name="wasteDescription"
+              id="wasteDescription"
+              placeholder="Waste Description"
+              type="textarea"
+            />
+            <div className="flex justify-center">
+              <button className="bg-green-600 text-white px-8 py-2 rounded-lg">
+                Generate Pickup Request
+              </button>
+            </div>
+          </form>
+        </section>
       </main>
     </>
   );

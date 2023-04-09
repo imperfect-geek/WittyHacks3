@@ -3,6 +3,7 @@ import api from "api/apiService";
 import CommongNav from "components/nav/CommonNav";
 import { respPX } from "constants/styles";
 import SendIcon from "@mui/icons-material/Send";
+import chatGptGIF from "assets/chatGPT.gif";
 import React from "react";
 
 const WasteBuddyPage = () => {
@@ -52,9 +53,16 @@ const WasteBuddyPage = () => {
       >
         {/* Chats */}
         <div
-          className="overflow-y-scroll flex flex-col flex-grow gap-2 px-4"
+          className="overflow-y-scroll flex flex-col flex-grow gap-2 px-4 relative"
           ref={chatsRef}
         >
+          {chats.length === 0 && (
+            <img
+              src={chatGptGIF}
+              alt="Waste Buddy saying hi"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-50"
+            />
+          )}
           {chats.map((chat, index) => {
             return (
               <Zoom
