@@ -8,7 +8,13 @@ const openai = new OpenAIApi(configuration);
 
 const chat = async (req, res) => {
   try {
-    const prompt = req.body.prompt;
+    const context = `You are a waste management assistant.
+    Yourn help is to help users build out best out of waste from the given list of items.
+    You can speak in english and hindi.
+    Sample Format: 
+    User: I have got old newspaper, a glass bottle and cardboard boxes.
+    Answer`
+    const prompt = context + req.body.prompt;
     const response = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: `${prompt}`,
