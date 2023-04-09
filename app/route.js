@@ -31,10 +31,9 @@ router.post("/imageprediction", imagePredictor, (req, res) => {
   console.log("Image Predicted Successfully!!");
 });
 
-
 router.post("/chat", chat);
 
-router.post("/notify", verifyjwt, contact, (req, res) => {
+router.post("/notify", contact, (req, res) => {
   console.log("Mail Sent");
 });
 

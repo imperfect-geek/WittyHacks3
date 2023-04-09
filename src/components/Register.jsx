@@ -148,6 +148,7 @@ const Register = () => {
             <label className="mb-1 uppercase">Name</label>
             <input
               name="name"
+              placeholder="Enter your name"
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="w-80 h-11 rounded-lg bg-slate-100 text-black-600 p-2"
@@ -157,6 +158,7 @@ const Register = () => {
             <label className="mb-1 uppercase">contact</label>
             <input
               name="contact"
+              placeholder="Enter your contact"
               value={contact}
               onChange={(e) => setContact(e.target.value)}
               className="w-80 h-11 rounded-lg bg-slate-100 text-black-600 p-2"
@@ -166,6 +168,7 @@ const Register = () => {
             <label className="mb-1 uppercase">Email</label>
             <input
               name="email"
+              placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-80 h-11 rounded-lg bg-slate-100 text-black-600 p-2"
@@ -177,6 +180,7 @@ const Register = () => {
             <input
               name="pincode"
               value={pincode}
+              placeholder="6 digit pincode"
               onChange={(e) => setPincode(e.target.value)}
               className="w-80 h-11 rounded-lg bg-slate-100 text-black-600 p-2"
             />
@@ -188,6 +192,7 @@ const Register = () => {
               type="password"
               name="Password"
               value={password}
+              placeholder="Enter your password"
               onChange={(e) => setPassword(e.target.value)}
               className="w-80 h-11 rounded-lg bg-slate-100 text-black-600 p-2"
             />
@@ -197,6 +202,7 @@ const Register = () => {
             <input
               type="password"
               name="confirmPassword"
+              placeholder="Confirm your password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               className="w-80 h-11 rounded-lg bg-slate-100 text-black-600 p-2"

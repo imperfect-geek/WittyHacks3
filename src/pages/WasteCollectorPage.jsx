@@ -4,6 +4,7 @@ import { respPX } from "constants/styles";
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import SweepingFloorGIF from "assets/sweeping-floor.gif";
+import api from "api/apiService";
 
 const LabelInput = ({ label, name, id, placeholder, type = "text" }) => {
   return (
@@ -36,28 +37,36 @@ const LabelInput = ({ label, name, id, placeholder, type = "text" }) => {
 const WasteCollectorPage = () => {
   const navigate = useNavigate();
   const { open: openSnackbar } = useContext(SnackbarContext);
-  const handleSubmit = (ev) => {
-    // ev.preventDefault();
-    // [...ev.target.elements].forEach((e) => {
-    //   console.log(e.value);
-    // });
-    openSnackbar(
-      "Succesfully submitted your request, Nagar Nigam team will be in contact with you soon.",
-      "success"
-    );
-    navigate("/");
+  const handleSubmit = async (ev) => {
+    ev.preventDefault();
+    const data = {};
+    [...ev.target.elements].forEach((e) => {
+      data[e.name] = e.value;
+    });
+    try {
+      const resp = await api.post("/notify", {
+        ...data,
+      });
+      openSnackbar(
+        "Succesfully submitted your request, Nagar Nigam team will be in contact with you soon.",
+        "success"
+      );
+      navigate("/");
+    } catch (error) {
+      openSnackbar(error.message, "error");
+    }
   };
   return (
     <>
       <CommongNav />
       <main className={`${respPX} py-6`}>
-        <h1 className="text-5xl flex items-center justify-center">
+        <h1 className="text-2xl md:text-5xl font-bold flex items-center justify-center">
           Waste Collection Form
           <span className="">
             <img
               src={SweepingFloorGIF}
               alt="cleaning"
-              className="md:hidden w-28"
+              className="md:hidden w-32"
             />
           </span>
         </h1>
@@ -83,7 +92,7 @@ const WasteCollectorPage = () => {
               />
               <LabelInput
                 label="Phone"
-                name="phone"
+                name="contact"
                 id="phone"
                 placeholder="Phone"
               />
@@ -96,7 +105,7 @@ const WasteCollectorPage = () => {
             </div>
             <LabelInput
               label="Waste Description"
-              name="wasteDescription"
+              name="description"
               id="wasteDescription"
               placeholder="Waste Description"
               type="textarea"
