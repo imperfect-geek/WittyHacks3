@@ -65,6 +65,7 @@ export const user_login = (credential, password) => {
           message: "User Login Successfully",
         })
       );
+      return data;
     } catch (error) {
       if (error) {
         dispatch(
@@ -73,6 +74,7 @@ export const user_login = (credential, password) => {
             message: error.response.data.message,
           })
         );
+        throw error;
       }
     }
   };

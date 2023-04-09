@@ -18,10 +18,13 @@ const Login = () => {
 
   const loginHandler = async (e) => {
     e.preventDefault();
-
-    await dispatch(user_login(credentials, password));
-    openSnackbar("Logged In Successfully", "success");
-    navigate("/");
+    try {
+      const data = await dispatch(user_login(credentials, password));
+      openSnackbar("Logged In Successfully", "success");
+      navigate("/");
+    } catch (error) {
+      openSnackbar(error?.response?.data?.message, "error");
+    }
   };
 
   useEffect(() => {
