@@ -1,33 +1,35 @@
 const nodemailer = require("nodemailer");
-const User = require("../models/user");
+require("dotenv").config();
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "johncookbrowse@gmail.com",
-    pass: "kkoixcqyopunyuzc",
+    user: process.env.SMTP_MAIL,
+    pass: process.env.SMTP_PASSWORD,
   },
 });
 
 const contact = async (req, res, next) => {
   try {
-    if (req.body.sellerId && req.body.title) {
-      const seller = await User.findById(req.body.sellerId, "email -_id");
-      const buyer = await User.findById(
-        req.userId,
-        "name contact address email -_id"
-      );
+    if (
+      req.body.name &&
+      req.body.address &&
+      req.body.description &&
+      req.body.contact &&
+      req.body.email
+    ) {
+      const buyer = req.body;
       const mailOptions = {
-        from: "johncookbrowse@gmail.com", // sender address
-        to: seller.email, // list of receivers
-        subject: `Someone showed interest in ${req.body.title}`, // Subject line
+        from: process.env.SMTP_MAIL, // sender address
+        to: "divyanshugour197@gmail.com", // list of receivers
+        subject: `Waste Collection Request`, // Subject line
         html: `<p>
                 <strong> Contact Details </strong><br>
                 Name: ${buyer.name} <br>
                 Contact: ${buyer.contact} <br>
                 Email: ${buyer.email} <br>
-                Address: ${buyer.address.addressLine}, ${buyer.address.locality} <br>
-                City: ${buyer.address.city}, ${buyer.address.state} <br>
+                Address: ${buyer.address} <br>
+                Description: ${buyer.description}
                 Regards: <strong>Team VoidTrash</strong>
             </p>`, // plain text body
       };
